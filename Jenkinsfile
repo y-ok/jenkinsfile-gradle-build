@@ -33,8 +33,8 @@ pipeline {
       
       stage('テスト') {
           steps {
-              gradlew 'test jacocoTestReport -x classes -x testClasses'
               try {
+                  gradlew 'test jacocoTestReport -x classes -x testClasses'
                   junit "${testReportDir}/*.xml"
                   archiveArtifacts "${testReportDir}/*.xml"
                   
