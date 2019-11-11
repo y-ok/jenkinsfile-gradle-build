@@ -33,20 +33,15 @@ pipeline {
       
       stage('テスト') {
           steps {
-              try {
-                  gradlew 'test jacocoTestReport -x classes -x testClasses'
-                  junit "${testReportDir}/*.xml"
-                  archiveArtifacts "${testReportDir}/*.xml"
-                  
-                  step([
-                      $class: 'JacocoPublisher',
-                      execPattern: "${jacocoReportDir}/*.exec",
-                      exclusionPattern: '**/*Test.class'
-                      ])
-              } catch (e) {
-                  currentBuild.result = "UNSTABLE"
-                  throw e
-              }
+              gradlew 'test jacocoTestReport -x classes -x testClasses'
+              junit allowEmptyResults: true, testResults: "${testReportDir}/*.xml"
+              archiveArtifacts "${testReportDir}/*.xml"
+              
+              step([
+                  $class: 'JacocoPublisher',
+                  execPattern: "${jacocoReportDir}/*.exec",
+                  exclusionPattern: '**/*Test.class'
+                  ])
           }
       }
    }
