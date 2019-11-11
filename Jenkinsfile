@@ -37,11 +37,11 @@ pipeline {
               junit allowEmptyResults: true, testResults: "${testReportDir}/*.xml"
               archiveArtifacts allowEmptyArchive: true, artifacts: "${testReportDir}/*.xml"
               
-              step([
-                  $class: 'JacocoPublisher',
-                  execPattern: "${jacocoReportDir}/*.exec",
-                  exclusionPattern: '**/*Test.class'
-                  ])
+              //step([
+              //    $class: 'JacocoPublisher',
+              //    execPattern: "${jacocoReportDir}/*.exec",
+              //    exclusionPattern: '**/*Test.class'
+              //    ])
           }
       }
    }
