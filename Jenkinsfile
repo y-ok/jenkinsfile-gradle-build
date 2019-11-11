@@ -35,7 +35,7 @@ pipeline {
           steps {
               gradlew 'test jacocoTestReport -x classes -x testClasses'
               junit allowEmptyResults: true, testResults: "${testReportDir}/*.xml"
-              archiveArtifacts "${testReportDir}/*.xml", allowEmptyArchive: true
+              archiveArtifacts allowEmptyArchive: true, artifacts: "${testReportDir}/*.xml"
               
               step([
                   $class: 'JacocoPublisher',
