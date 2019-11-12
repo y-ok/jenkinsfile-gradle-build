@@ -37,12 +37,12 @@ pipeline {
               junit allowEmptyResults: true, testResults: "${testReportDir}/*.xml"
               archiveArtifacts allowEmptyArchive: true, artifacts: "${testReportDir}/*.xml"
               
-              publishHTML([reportDir: 'build/reports/tests/test', reportFiles: 'index.html', reportName: 'HTML Report'])
-              //step([
-              //    $class: 'JacocoPublisher',
-              //    execPattern: "${jacocoReportDir}/*.exec",
-              //    exclusionPattern: '**/*Test.class'
-              //    ])
+              publishHTML([
+                  keepAll: true,
+                  reportDir: 'build/reports/tests/test', 
+                  reportFiles: 'index.html', 
+                  reportName: 'HTML Report'
+                  ])
           }
       }
    }
