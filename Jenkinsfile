@@ -38,6 +38,8 @@ pipeline {
               archiveArtifacts allowEmptyArchive: true, artifacts: "${testReportDir}/*.xml"
               
               publishHTML([
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
                   keepAll: true,
                   reportDir: 'build/reports/tests/test', 
                   reportFiles: 'index.html', 
