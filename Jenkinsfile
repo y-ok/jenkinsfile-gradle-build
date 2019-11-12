@@ -2,7 +2,7 @@ pipeline {
    agent any
    environment {
        javadocDir = 'build/docs/javadoc'
-       testReportDir = 'build/test-results/test'
+       testReportDir = 'build/reports/tests/test'
        jacocoReportDir = 'build/jacoco'
    }
    stages {
@@ -27,7 +27,7 @@ pipeline {
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
                   keepAll: true,
-                  reportDir: 'build/docs/javadoc',
+                  reportDir: "${javadocDir}",
                   reportFiles: 'index.html', 
                   reportName: 'Javadocレポート'
                   ])
@@ -36,15 +36,12 @@ pipeline {
       
       stage('テスト') {
           steps {
-              gradlew 'test jacocoTestReport -x classes -x testClasses'
-              junit allowEmptyResults: true, testResults: "${testReportDir}/*.xml"
-              archiveArtifacts allowEmptyArchive: true, artifacts: "${testReportDir}/*.xml"
-              
+              gradlew 'test jacocoTestReport -x classes -x testClasses'              
               publishHTML([
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
                   keepAll: true,
-                  reportDir: 'build/reports/tests/test', 
+                  reportDir: "${testReportDir}",
                   reportFiles: 'index.html', 
                   reportName: 'JUnit実行レポート'
                   ])
