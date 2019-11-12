@@ -3,6 +3,7 @@ pipeline {
    environment {
        javadocDir = 'build/docs/javadoc'
        testReportDir = 'build/reports/tests/test'
+       spotBugsDir = 'build/reports/spotbugs'
        jacocoReportDir = 'build/jacoco'
    }
    stages {
@@ -12,6 +13,20 @@ pipeline {
              git url: 'https://github.com/y-ok/gradle-java-project.git', branch: 'master'
              gradlew 'clean'
          }
+      }
+      
+      stage('静的解析') {
+          steps {
+              gradlew 'spotbugsMain'              
+              publishHTML([
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: "${spotBugsDir}",
+                  reportFiles: 'main.html', 
+                  reportName: 'spotbugs解析結果レポート'
+                  ])
+          }
       }
       
       stage('コンパイル') {
