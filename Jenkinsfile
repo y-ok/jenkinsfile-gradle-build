@@ -27,7 +27,7 @@ pipeline {
                   allowMissing: false,
                   alwaysLinkToLastBuild: false,
                   keepAll: true,
-                  reportDir: "${javadocDir}",
+                  reportDir: 'build/docs/javadoc',
                   reportFiles: 'index.html', 
                   reportName: 'Javadocレポート'
                   ])
