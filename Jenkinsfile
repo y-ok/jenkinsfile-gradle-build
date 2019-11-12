@@ -20,13 +20,16 @@ pipeline {
           }
       }
       
-      stage('JavaDoc') {
+      stage('Javadoc') {
           steps {
               gradlew 'javadoc -x classes'
-              step([
-                  $class: 'JavadocArchiver',
-                  javadocDir: "${javadocDir}",
-                  keepAll: true
+              publishHTML([
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: "${javadocDir}",
+                  reportFiles: 'index.html', 
+                  reportName: 'Javadocレポート'
                   ])
           }
       }
@@ -43,7 +46,7 @@ pipeline {
                   keepAll: true,
                   reportDir: 'build/reports/tests/test', 
                   reportFiles: 'index.html', 
-                  reportName: 'HTML Report'
+                  reportName: 'JUnit実行レポート'
                   ])
           }
       }
