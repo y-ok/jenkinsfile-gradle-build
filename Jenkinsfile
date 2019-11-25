@@ -60,15 +60,6 @@ pipeline {
                   reportFiles: 'index.html', 
                   reportName: 'JUnit実行レポート'
                   ])
-                  
-              publishHTML([
-                  allowMissing: false,
-                  alwaysLinkToLastBuild: false,
-                  keepAll: true,
-                  reportDir: "${jacocoReportDir}",
-                  reportFiles: 'index.html', 
-                  reportName: 'Jacocoレポート'
-                  ])
           }
       }
    }
