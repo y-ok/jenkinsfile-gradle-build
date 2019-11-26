@@ -49,20 +49,6 @@ pipeline {
           }
       }
       
-      stage('テスト') {
-          steps {
-              gradlew 'test jacocoTestReport -x classes -x testClasses'              
-              publishHTML([
-                  allowMissing: false,
-                  alwaysLinkToLastBuild: false,
-                  keepAll: true,
-                  reportDir: "${testReportDir}",
-                  reportFiles: 'index.html', 
-                  reportName: 'JUnit実行レポート'
-                  ])
-          }
-      }
-      
       stage('リリース作成') {
           steps {
               gradlew 'releaseZip'
