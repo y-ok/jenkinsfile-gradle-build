@@ -65,7 +65,7 @@ pipeline {
       
       stage('リリース作成') {
           steps {
-              gradlew 'makeRelease'
+              gradlew 'releaseZip'
           }
       }
    }
