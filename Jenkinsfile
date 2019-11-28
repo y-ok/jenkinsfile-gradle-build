@@ -46,6 +46,20 @@ pipeline {
                   reportFiles: 'index.html', 
                   reportName: 'Javadocレポート'
                   ])
+          }
+      }
+
+      stage('テスト') {
+          steps {
+              gradlew 'test jacocoTestReport -x classes'
+              publishHTML([
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: "${testReportDir}",
+                  reportFiles: 'index.html', 
+                  reportName: 'テストレポート'
+                  ])
              
               publishHTML([
                   allowMissing: false,
