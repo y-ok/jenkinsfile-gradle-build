@@ -3,29 +3,7 @@
 1. Jenkins dockerコンテナのダウンロード
 
     ```bash
-    $ docker pull jenkins/jenkins:lts
-    lts: Pulling from jenkins/jenkins
-    9a0b0ce99936: Pull complete
-    db3b6004c61a: Pull complete
-    f8f075920295: Pull complete
-    6ef14aff1139: Pull complete
-    962785d3b7f9: Pull complete
-    631589572f9b: Pull complete
-    c55a0c6f4c7b: Pull complete
-    911269a281e7: Pull complete
-    45099f90ad07: Pull complete
-    bd655133fb06: Pull complete
-    ea116f49f692: Pull complete
-    a9e13a874162: Pull complete
-    bdbca454a0c4: Pull complete
-    9b2fec49ceaa: Pull complete
-    765aaab2ff5b: Pull complete
-    a46bfc77dc0f: Pull complete
-    2cd8e1655f4a: Pull complete
-    4d138a7aea1a: Pull complete
-    Digest: sha256:c3b6fa9216336022067be94adb9d4696459903bf3e67e01a8d0009994f5ab78d
-    Status: Downloaded newer image for jenkins/jenkins:lts
-    docker.io/jenkins/jenkins:lts
+    > docker pull jenkinsci/blueocean
     ```
 
 1. Jenkins起動
@@ -150,5 +128,5 @@
     回避策はdocker Jenkins起動時に以下を設定する。
 
     ```bash
-    docker run -d -v /Users/okawauchi/Desktop/workspace/jenkins-data:/var/jenkins_home -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Dhudson.model.DirectoryBrowserSupport.CSP=\"\"" --name jenkins jenkins/jenkins:lts
+    docker run -d -v /Users/okawauchi/Desktop/workspace/jenkins-data:/var/jenkins_home -p 8080:8080 --env JENKINS_JAVA_OPTIONS="-Djava.awt.headless=true -Dhudson.model.DirectoryBrowserSupport.CSP=\"default-src 'self' 'unsafe-inline' 'unsafe-eval'; img-src data:;\"" --name jenkins jenkinsci/blueocean
     ```
