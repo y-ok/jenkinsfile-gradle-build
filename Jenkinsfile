@@ -4,7 +4,7 @@ pipeline {
        javadocDir = 'build/docs/javadoc'
        testReportDir = 'build/reports/tests/test'
        spotBugsDir = 'build/reports/spotbugs'
-       jacocoReportDir = 'build/jacoco'
+       jacocoReportDir = 'build/jacocoHtml'
    }
    stages {
       stage('事前準備') {
@@ -46,9 +46,18 @@ pipeline {
                   reportFiles: 'index.html', 
                   reportName: 'Javadocレポート'
                   ])
+             
+              publishHTML([
+                  allowMissing: false,
+                  alwaysLinkToLastBuild: false,
+                  keepAll: true,
+                  reportDir: "${jacocoReportDir}",
+                  reportFiles: 'index.html', 
+                  reportName: 'Jacocoレポート'
+                  ])
           }
       }
-      
+
       stage('リリース作成') {
           steps {
               gradlew 'releaseZip'
